@@ -16,4 +16,11 @@ class UsageError extends AppError {}
 /** Ошибка сети, HTTP 4xx/5xx, таймаут или некорректный JSON от API. */
 class WeatherApiError extends AppError {}
 
-module.exports = { AppError, UsageError, WeatherApiError };
+/** Город не найден (пустой результат геокодинга). */
+class CityNotFoundError extends AppError {
+  constructor(city) {
+    super(`Город не найден: ${city}`);
+  }
+}
+
+module.exports = { AppError, UsageError, WeatherApiError, CityNotFoundError };
