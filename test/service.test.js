@@ -27,7 +27,13 @@ function mockApi(t) {
         status: 200,
         json: async () => ({
           results: [
-            { name: 'Москва', country: 'Россия', admin1: 'Москва', latitude: 55.75, longitude: 37.62 },
+            {
+              name: 'Москва',
+              country: 'Россия',
+              admin1: 'Москва',
+              latitude: 55.75,
+              longitude: 37.62,
+            },
           ],
         }),
       };

@@ -13,11 +13,14 @@ test('HTTP 4xx — WeatherApiError', async (t) => {
     json: async () => ({}),
   }));
 
-  await assert.rejects(() => getJson('http://example.com'), (err) => {
-    assert.ok(err instanceof WeatherApiError);
-    assert.match(err.message, /HTTP 404/);
-    return true;
-  });
+  await assert.rejects(
+    () => getJson('http://example.com'),
+    (err) => {
+      assert.ok(err instanceof WeatherApiError);
+      assert.match(err.message, /HTTP 404/);
+      return true;
+    }
+  );
 });
 
 test('HTTP 5xx — WeatherApiError', async (t) => {
@@ -27,11 +30,14 @@ test('HTTP 5xx — WeatherApiError', async (t) => {
     json: async () => ({}),
   }));
 
-  await assert.rejects(() => getJson('http://example.com'), (err) => {
-    assert.ok(err instanceof WeatherApiError);
-    assert.match(err.message, /HTTP 500/);
-    return true;
-  });
+  await assert.rejects(
+    () => getJson('http://example.com'),
+    (err) => {
+      assert.ok(err instanceof WeatherApiError);
+      assert.match(err.message, /HTTP 500/);
+      return true;
+    }
+  );
 });
 
 test('отсутствие сети — WeatherApiError', async (t) => {
@@ -39,11 +45,14 @@ test('отсутствие сети — WeatherApiError', async (t) => {
     throw new TypeError('fetch failed');
   });
 
-  await assert.rejects(() => getJson('http://example.com'), (err) => {
-    assert.ok(err instanceof WeatherApiError);
-    assert.match(err.message, /сеть|запрос/);
-    return true;
-  });
+  await assert.rejects(
+    () => getJson('http://example.com'),
+    (err) => {
+      assert.ok(err instanceof WeatherApiError);
+      assert.match(err.message, /сеть|запрос/);
+      return true;
+    }
+  );
 });
 
 test('некорректный JSON — WeatherApiError', async (t) => {
@@ -55,11 +64,14 @@ test('некорректный JSON — WeatherApiError', async (t) => {
     },
   }));
 
-  await assert.rejects(() => getJson('http://example.com'), (err) => {
-    assert.ok(err instanceof WeatherApiError);
-    assert.match(err.message, /JSON/);
-    return true;
-  });
+  await assert.rejects(
+    () => getJson('http://example.com'),
+    (err) => {
+      assert.ok(err instanceof WeatherApiError);
+      assert.match(err.message, /JSON/);
+      return true;
+    }
+  );
 });
 
 test('превышение таймаута — WeatherApiError', async (t) => {
@@ -73,9 +85,12 @@ test('превышение таймаута — WeatherApiError', async (t) => {
     });
   });
 
-  await assert.rejects(() => getJson('http://example.com', { timeout: 10 }), (err) => {
-    assert.ok(err instanceof WeatherApiError);
-    assert.match(err.message, /таймаут/i);
-    return true;
-  });
+  await assert.rejects(
+    () => getJson('http://example.com', { timeout: 10 }),
+    (err) => {
+      assert.ok(err instanceof WeatherApiError);
+      assert.match(err.message, /таймаут/i);
+      return true;
+    }
+  );
 });

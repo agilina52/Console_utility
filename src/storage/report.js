@@ -36,7 +36,7 @@ async function loadReport(filePath) {
 
   try {
     return JSON.parse(raw);
-  } catch (err) {
+  } catch {
     throw new ReportError(`Некорректный JSON в кэше ${filePath}. Используйте --no-cache.`);
   }
 }

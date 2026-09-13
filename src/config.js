@@ -18,10 +18,7 @@ const config = {
     'WEATHER_GEOCODING_URL',
     'https://geocoding-api.open-meteo.com/v1/search'
   ),
-  forecastUrl: readString(
-    'WEATHER_FORECAST_URL',
-    'https://api.open-meteo.com/v1/forecast'
-  ),
+  forecastUrl: readString('WEATHER_FORECAST_URL', 'https://api.open-meteo.com/v1/forecast'),
 };
 
 function readString(key, defaultValue) {

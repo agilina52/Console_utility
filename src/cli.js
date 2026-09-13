@@ -83,9 +83,7 @@ function takeValue(argv, index, option) {
 function parseDays(value) {
   const days = Number(value);
   if (!Number.isInteger(days) || days < MIN_DAYS || days > MAX_DAYS) {
-    throw new UsageError(
-      `Параметр --days должен быть целым числом от ${MIN_DAYS} до ${MAX_DAYS}.`
-    );
+    throw new UsageError(`Параметр --days должен быть целым числом от ${MIN_DAYS} до ${MAX_DAYS}.`);
   }
   return days;
 }

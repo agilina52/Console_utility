@@ -29,9 +29,7 @@ async function run(argv) {
   }
 
   const results = await Promise.all(
-    args.cities.map((city) =>
-      processCity(city, { days: args.days, noCache: args.noCache })
-    )
+    args.cities.map((city) => processCity(city, { days: args.days, noCache: args.noCache }))
   );
 
   let hasError = false;
