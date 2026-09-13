@@ -13,4 +13,14 @@ class AppError extends Error {
 /** Неверные или отсутствующие аргументы командной строки. */
 class UsageError extends AppError {}
 
-module.exports = { AppError, UsageError };
+/** Ошибка сети, HTTP 4xx/5xx, таймаут или некорректный JSON от API. */
+class WeatherApiError extends AppError {}
+
+/** Город не найден (пустой результат геокодинга). */
+class CityNotFoundError extends AppError {
+  constructor(city) {
+    super(`Город не найден: ${city}`);
+  }
+}
+
+module.exports = { AppError, UsageError, WeatherApiError, CityNotFoundError };
