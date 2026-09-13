@@ -1,0 +1,194 @@
+{
+  "info": {
+    "name": "Погодный дайджест — Open-Meteo API",
+    "description": "Коллекция для ручного тестирования API Open-Meteo, используемого консольной утилитой.\n\n1. Геокодинг — координаты по названию города (geocoding-api.open-meteo.com).\n2. Прогноз — погода по координатам (api.open-meteo.com).\n\nУ двух endpoints разные хосты, поэтому заданы два базовых URL:\n  {{geocodingBaseUrl}} и {{baseUrl}}.\n\nПеременные коллекции: baseUrl, geocodingBaseUrl, city, lat, lon, days.\nСохранены примеры ответов: успешный (200), «город не найден» (200 без results)\nи ошибка при некорректном параметре (400).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.open-meteo.com/v1"
+    },
+    {
+      "key": "geocodingBaseUrl",
+      "value": "https://geocoding-api.open-meteo.com/v1"
+    },
+    {
+      "key": "city",
+      "value": "Нижний Новгород"
+    },
+    {
+      "key": "lat",
+      "value": "56.32867"
+    },
+    {
+      "key": "lon",
+      "value": "44.00205"
+    },
+    {
+      "key": "days",
+      "value": "3"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Геокодинг: поиск города",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{geocodingBaseUrl}}/search?name={{city}}&count=1&language=ru&format=json",
+          "host": [
+            "{{geocodingBaseUrl}}"
+          ],
+          "path": [
+            "search"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "{{city}}"
+            },
+            {
+              "key": "count",
+              "value": "1"
+            },
+            {
+              "key": "language",
+              "value": "ru"
+            },
+            {
+              "key": "format",
+              "value": "json"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Успешный ответ — 200 OK",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"results\": [\n    {\n      \"id\": 520555,\n      \"name\": \"Нижний Новгород\",\n      \"latitude\": 56.32867,\n      \"longitude\": 44.00205,\n      \"elevation\": 141,\n      \"feature_code\": \"PPLA\",\n      \"country_code\": \"RU\",\n      \"admin1_id\": 559838,\n      \"timezone\": \"Europe/Moscow\",\n      \"population\": 1259013,\n      \"country_id\": 2017370,\n      \"country\": \"Россия\",\n      \"admin1\": \"Нижегородская Область\"\n    }\n  ],\n  \"generationtime_ms\": 2.387762\n}"
+        },
+        {
+          "name": "Город не найден — 200 OK (нет поля results)",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"generationtime_ms\": 0.20134449\n}"
+        }
+      ]
+    },
+    {
+      "name": "2. Прогноз по координатам",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/forecast?latitude={{lat}}&longitude={{lon}}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&forecast_days={{days}}&timezone=auto",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "forecast"
+          ],
+          "query": [
+            {
+              "key": "latitude",
+              "value": "{{lat}}"
+            },
+            {
+              "key": "longitude",
+              "value": "{{lon}}"
+            },
+            {
+              "key": "daily",
+              "value": "temperature_2m_max,temperature_2m_min,precipitation_sum"
+            },
+            {
+              "key": "forecast_days",
+              "value": "{{days}}"
+            },
+            {
+              "key": "timezone",
+              "value": "auto"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Успешный ответ — 200 OK",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"latitude\": 56.3125,\n  \"longitude\": 44,\n  \"generationtime_ms\": 0.054717,\n  \"utc_offset_seconds\": 10800,\n  \"timezone\": \"Europe/Moscow\",\n  \"timezone_abbreviation\": \"GMT+3\",\n  \"elevation\": 128,\n  \"daily_units\": {\n    \"time\": \"iso8601\",\n    \"temperature_2m_max\": \"°C\",\n    \"temperature_2m_min\": \"°C\",\n    \"precipitation_sum\": \"mm\"\n  },\n  \"daily\": {\n    \"time\": [\n      \"2026-09-13\",\n      \"2026-09-14\",\n      \"2026-09-15\"\n    ],\n    \"temperature_2m_max\": [\n      16.4,\n      18.5,\n      17.6\n    ],\n    \"temperature_2m_min\": [\n      10.3,\n      9.1,\n      10.6\n    ],\n    \"precipitation_sum\": [\n      0,\n      0,\n      0\n    ]\n  }\n}"
+        },
+        {
+          "name": "Ошибка: некорректный параметр — 400 Bad Request",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/forecast?latitude={{lat}}&longitude={{lon}}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&forecast_days=100&timezone=auto",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "forecast"
+              ],
+              "query": [
+                {
+                  "key": "latitude",
+                  "value": "{{lat}}"
+                },
+                {
+                  "key": "longitude",
+                  "value": "{{lon}}"
+                },
+                {
+                  "key": "daily",
+                  "value": "temperature_2m_max,temperature_2m_min,precipitation_sum"
+                },
+                {
+                  "key": "forecast_days",
+                  "value": "100"
+                },
+                {
+                  "key": "timezone",
+                  "value": "auto"
+                }
+              ]
+            }
+          },
+          "body": "{\n  \"error\": true,\n  \"reason\": \"Forecast days is invalid. Allowed range 0 to 16. Given 16.\"\n}"
+        }
+      ]
+    }
+  ]
+}
