@@ -1,0 +1,16 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Отчёты утилиты (генерируются при запуске)
+reports/
+
+# Переменные окружения (могут содержать секреты)
+.env
+
+# Служебный каталог Qwen Code — не публикуем
+.qwen/
+
+# macOS
+.DS_Store
