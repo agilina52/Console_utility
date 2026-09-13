@@ -13,4 +13,7 @@ class AppError extends Error {
 /** Неверные или отсутствующие аргументы командной строки. */
 class UsageError extends AppError {}
 
-module.exports = { AppError, UsageError };
+/** Ошибка сети, HTTP 4xx/5xx, таймаут или некорректный JSON от API. */
+class WeatherApiError extends AppError {}
+
+module.exports = { AppError, UsageError, WeatherApiError };
