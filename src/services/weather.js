@@ -2,13 +2,7 @@
 
 const { getCoordinates } = require('../api/geocoding');
 const { getForecast } = require('../api/forecast');
-const {
-  getReportPath,
-  reportExists,
-  loadReport,
-  saveReport,
-  today,
-} = require('../storage/report');
+const { getReportPath, reportExists, loadReport, saveReport, today } = require('../storage/report');
 const config = require('../config');
 
 /**

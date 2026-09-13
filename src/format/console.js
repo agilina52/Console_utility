@@ -6,9 +6,7 @@ function formatCityBlock({ report, source }) {
   const lines = [];
   lines.push(`=== ${report.city} ===`);
   lines.push(`Страна: ${report.country || '—'}`);
-  lines.push(
-    `Координаты: ${report.latitude.toFixed(2)}, ${report.longitude.toFixed(2)}`
-  );
+  lines.push(`Координаты: ${report.latitude.toFixed(2)}, ${report.longitude.toFixed(2)}`);
   if (source === 'cache') {
     lines.push('Источник: кэш');
   }
@@ -23,13 +21,14 @@ function formatCityBlock({ report, source }) {
   ]);
 
   const table = [header, ...rows];
-  const widths = header.map((_, col) =>
-    Math.max(...table.map((row) => row[col].length))
-  );
+  const widths = header.map((_, col) => Math.max(...table.map((row) => row[col].length)));
 
   lines.push(
     ...table.map((row) =>
-      row.map((cell, col) => cell.padEnd(widths[col])).join('   ').trimEnd()
+      row
+        .map((cell, col) => cell.padEnd(widths[col]))
+        .join('   ')
+        .trimEnd()
     )
   );
 

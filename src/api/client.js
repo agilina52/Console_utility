@@ -22,9 +22,7 @@ async function getJson(url, { timeout = config.timeout } = {}) {
     if (err.name === 'AbortError') {
       throw new WeatherApiError(`Превышен таймаут запроса (${timeout} мс).`);
     }
-    throw new WeatherApiError(
-      `Отсутствует сеть или не удалось выполнить запрос: ${err.message}`
-    );
+    throw new WeatherApiError(`Отсутствует сеть или не удалось выполнить запрос: ${err.message}`);
   } finally {
     clearTimeout(timer);
   }

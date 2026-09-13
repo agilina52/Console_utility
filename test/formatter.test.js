@@ -11,9 +11,7 @@ const report = {
   latitude: 56.33,
   longitude: 44.0,
   date: '2026-09-13',
-  days: [
-    { date: '2026-09-13', minTemperature: 8.5, maxTemperature: 15.2, precipitation: 1.1 },
-  ],
+  days: [{ date: '2026-09-13', minTemperature: 8.5, maxTemperature: 15.2, precipitation: 1.1 }],
 };
 
 test('formatCityBlock содержит город, страну, координаты и таблицу', () => {
