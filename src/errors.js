@@ -23,4 +23,7 @@ class CityNotFoundError extends AppError {
   }
 }
 
-module.exports = { AppError, UsageError, WeatherApiError, CityNotFoundError };
+/** Ошибка чтения или записи отчёта (файла). */
+class ReportError extends AppError {}
+
+module.exports = { AppError, UsageError, WeatherApiError, CityNotFoundError, ReportError };

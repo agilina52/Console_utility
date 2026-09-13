@@ -1,6 +1,8 @@
 'use strict';
 
 const { parseArgs } = require('./cli');
+const { processCity } = require('./services/weather');
+const { formatCityBlock, formatError } = require('./format/console');
 const { UsageError } = require('./errors');
 
 /**
@@ -26,8 +28,23 @@ async function run(argv) {
     return 0;
   }
 
-  // TODO: получение прогноза и сохранение отчёта (реализуется в следующих ветках).
-  return 0;
+  const results = await Promise.all(
+    args.cities.map((city) =>
+      processCity(city, { days: args.days, noCache: args.noCache })
+    )
+  );
+
+  let hasError = false;
+  for (const result of results) {
+    if (result.ok) {
+      process.stdout.write(formatCityBlock(result) + '\n\n');
+    } else {
+      hasError = true;
+      process.stdout.write(formatError(result.city, result.error.message) + '\n\n');
+    }
+  }
+
+  return hasError ? 1 : 0;
 }
 
 function printUsage() {
