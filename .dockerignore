@@ -1,0 +1,11 @@
+node_modules/
+reports/
+.env
+.git/
+test/
+docs/
+eslint.config.js
+.prettierrc.json
+.prettierignore
+README.md
+package-lock.json
